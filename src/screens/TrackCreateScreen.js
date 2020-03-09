@@ -6,7 +6,7 @@ const TrackCreateScreen = () => {
         <View>
             <Text style= {{fontSize: 10}} >TrackCreateScreen</Text>
         </View>
-    )
+    )           
 };
 
 const styles = StyleSheet.create({});
