@@ -8,23 +8,31 @@ import TrackCreateScreen from './src/screens/TrackCreateScreen'
 import TrackDetailScreen from './src/screens/TrackDetailScreen'
 import TrackListScreen from './src/screens/TrackListScreen'
 import { Provider as AuthProvider } from './src/context/authContext'
+import { Provider as FunctionProvider } from './src/context/FunctionContext'
+
 import { setNavigator } from './src/navigationRef';
 
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import CreateScreen from './src/screens/CreateScreen';
+import IndexScreen from './src/screens/IndexScreen';
+import EditScreen from './src/screens/EditScreen';
+import DetailScreen from './src/screens/DetailScreen';
 
 const switchNavigator = createSwitchNavigator({
     loginflow: createStackNavigator({
         Signup: SignupScreen,
-        Signin: SigninScreen
+        Signin: SigninScreen,
+        Create: CreateScreen,
+        Edit: EditScreen,
+        Detail: DetailScreen,
+        Index: IndexScreen
     }),
     mainflow: createBottomTabNavigator({
         trackListFlow: createStackNavigator({
             TrackList: TrackListScreen,
             TrackDetail: TrackDetailScreen
-        }),
-        TrackCreate: TrackCreateScreen,
-        Account: AccountScreen
+        })
     })
 })
 
@@ -33,12 +41,14 @@ const App = createAppContainer(switchNavigator);
 export default () => {
     return (
         <AuthProvider>
-            <App ref={
-                (navigator) => { 
-                    setNavigator(navigator)
+            <FunctionProvider>
+                <App ref={
+                    (navigator) => {
+                        setNavigator(navigator)
+                    }
                 }
-            }
-            />
+                /></FunctionProvider>
+
         </AuthProvider>
     )
 }
