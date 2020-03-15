@@ -18,8 +18,10 @@ import CreateScreen from './src/screens/CreateScreen';
 import IndexScreen from './src/screens/IndexScreen';
 import EditScreen from './src/screens/EditScreen';
 import DetailScreen from './src/screens/DetailScreen';
+import ResolveAuthScreen from './src/screens/ResolveAuthScreen';
 
 const switchNavigator = createSwitchNavigator({
+    ResolveAuth: ResolveAuthScreen,
     loginflow: createStackNavigator({
         Signup: SignupScreen,
         Signin: SigninScreen,
@@ -28,6 +30,7 @@ const switchNavigator = createSwitchNavigator({
         Detail: DetailScreen,
         Index: IndexScreen
     }),
+
     mainflow: createBottomTabNavigator({
         trackListFlow: createStackNavigator({
             TrackList: TrackListScreen,
@@ -47,7 +50,8 @@ export default () => {
                         setNavigator(navigator)
                     }
                 }
-                /></FunctionProvider>
+                />
+            </FunctionProvider>
 
         </AuthProvider>
     )

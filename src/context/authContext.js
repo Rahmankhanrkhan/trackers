@@ -5,8 +5,10 @@ import { navigate } from '../navigationRef';
 
 const authReducer = (state, action) => {
     switch (action.type) {
-        case 'signup_error':
+        case 'access_error':
             return { ...state, errorMessage: action.payload };
+        case 'clearMessage':
+            return { ...state, errorMessage: '' }
 
         case 'signup':
             // console.log('action.payload:::',action.payload)
@@ -16,6 +18,21 @@ const authReducer = (state, action) => {
     }
 };
 
+const clearMessage = dispatch => () => {
+    dispatch({ type: 'clearMessage' })
+}
+
+const localSignin = dispatch => async () => {
+    const token = await AsyncStorage.getItem('token')
+    if (token) {
+        dispatch({ type: 'signup', payload: token })
+        const accessId = token
+        navigate('Index', ({ accessId }))
+    } else {
+        navigate('Signup')
+    }
+}
+
 const signUp = dispatch => {
     return async ({ email, password }) => {
         try {
@@ -23,24 +40,43 @@ const signUp = dispatch => {
             // console.log('response.data:::', response.data)
             await AsyncStorage.setItem('token', response.data.token)
             dispatch({ type: 'signup', payload: response.data.token })
-            const id = response.data.token
-            navigate('Index', ({ id }))
+            const accessId = response.data.token
+            navigate('Index', ({ accessId }))
         }
         catch (err) {
             dispatch(
                 {
-                    type: 'signup_error',
+                    type: 'access_error',
                     payload: 'Try '
                 }
             )
         }
     }
 }
-const signIn = dispatch => { }
+const signIn = dispatch => {
+    return async ({ email, password }) => {
+        try {
+            const response = await trackerApi.post('/signin', { email, password })
+            // console.log('response.data:::', response.data)
+            await AsyncStorage.setItem('token', response.data.token)
+            dispatch({ type: 'signup', payload: response.data.token })
+            const accessId = response.data.token
+            navigate('Index', ({ accessId }))
+        }
+        catch (err) {
+            dispatch(
+                {
+                    type: 'access_error',
+                    payload: 'Try'
+                }
+            )
+        }
+    }
+}
 const signOut = dispatch => { }
 
 export const { Provider, Context } = createDataContext(
     authReducer,
-    { signUp, signIn, signOut },
+    { signUp, signIn, signOut, clearMessage, localSignin },
     { token: null, errorMessage: '' }
 )

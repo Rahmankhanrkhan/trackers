@@ -11,10 +11,11 @@ const IndexScreen = ({ navigation }) => {
     console.log('state:::', state)
     // console.log(navigate.getParam('id')
     console.log('CONTEXT:::',Context)
+    const accessId =  navigation.getParam('accessId')
 
     return (
         <View>
-            
+        <Text> {accessId} </Text>
             <FlatList
                 data={state}
                 keyExtractor={(book) => book.id}

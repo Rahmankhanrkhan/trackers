@@ -1,18 +1,18 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Button, Text } from 'react-native';
 import { Context as AuthContext } from '../context/authContext';
 import AuthForm from '../components/AuthForm'
 import NavLink from '../components/NavLink';
+import { NavigationEvents } from 'react-navigation';
 
 const SignupScreen = ({ navigation }) => {
-    const { state, signUp } = useContext(AuthContext)
-    
+    const { state, signUp, clearMessage } = useContext(AuthContext)
+
     return (
         <View style={styles.container} >
-            {/* <Button title='Index' onPress={() => navigation.navigate('Index')} />
-            <Button title='Edit' onPress={() => navigation.navigate('Edit')} />
-            <Button title='Create' onPress={() => navigation.navigate('Create')} />
-            <Button title='Detail' onPress={() => navigation.navigate('Index')} /> */}
+            <NavigationEvents
+                onWillBlur={clearMessage}
+            />
             <AuthForm
                 headerText='Signup with Books'
                 errorMessage={state.errorMessage}
