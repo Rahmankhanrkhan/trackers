@@ -7,15 +7,15 @@ import { Context } from '../context/FunctionContext';
 
 const IndexScreen = ({ navigation }) => {
     const functionContext = useContext(Context)
-    const {state} = functionContext
+    const { state } = functionContext
     console.log('state:::', state)
     // console.log(navigate.getParam('id')
-    console.log('CONTEXT:::',Context)
-    const accessId =  navigation.getParam('accessId')
+    console.log('CONTEXT:::', Context)
+    const accessId = navigation.getParam('accessId')
 
     return (
         <View>
-        <Text> {accessId} </Text>
+            <Text> {accessId} </Text>
             <FlatList
                 data={state}
                 keyExtractor={(book) => book.id}
@@ -29,10 +29,7 @@ const IndexScreen = ({ navigation }) => {
                                     >
                                         <Text style={styles.text} >{item.title} -- {item.id} </Text>
                                     </TouchableOpacity>
-                                    {/* <TouchableOpacity
-                                        onPress={() => deleteBook(item.id)} >
-                                        <Feather name='trash-2' style={styles.icon} />
-                                    </TouchableOpacity> */}
+
                                 </View>
                             </Spacer>
                         </ScrollView>
@@ -57,6 +54,7 @@ IndexScreen.navigationOptions = ({ navigation }) => {
         )
     }
 }
+
 
 const styles = StyleSheet.create({
     text: {

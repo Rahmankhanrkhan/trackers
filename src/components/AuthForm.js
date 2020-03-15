@@ -61,6 +61,10 @@ const AuthForm = ({ headerText, onSubmit, submitButtonText, errorMessage }) => {
 const styles = StyleSheet.create({
     response: {
         color: 'red',
+        alignItems:'center',
+        alignContent:'center',
+        fontSize: 20,
+        justifyContent: 'center',
         marginLeft: 150
     }
 })
